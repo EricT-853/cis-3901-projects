@@ -1,0 +1,421 @@
+---
+title: "Guided Project: Scales and Facets"
+subtitle: "CIS-3901 · Module 13"
+author: "Eric Torralba"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: false
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+::: {.callout-important}
+## Edit the code in the script. The report and the slides only read it.
+
+The code lives in `scripts/gp13_scales_facets.R`. Your words (findings,
+headlines, limits) live in the report and the slides. Keep the code chunks
+here empty: on render, each one runs the script's code, so code typed into
+them is ignored. Fix the code in the script.
+:::
+
+```{r}
+#| label: project-root
+#| include: false
+# The report runs from reports/; this makes the code run from the project
+# folder, so the script's paths (data/...) work here too.
+knitr::opts_knit$set(root.dir = normalizePath(".."))
+```
+
+```{r}
+#| label: read-script
+#| include: false
+# All the code lives in the script. Each empty chunk below takes the code
+# with that "## ---- name ----" label there, and shows it with its output.
+knitr::read_chunk("scripts/gp13_scales_facets.R")
+```
+
+```{r}
+#| label: setup
+#| include: false
+```
+
+```{r}
+#| label: helpers
+#| include: false
+```
+
+<!--
+How to use this template
+- Replace every line that starts with "WRITE:" with your own sentences.
+- Replace "Your Name" above (a first name or initials is fine: this page is
+  public).
+- Replace each fig-alt with one sentence describing what YOUR plot shows.
+- Change code only in the script, never here: code typed into a chunk here
+  is ignored on render (the chunk runs the script's code).
+- Render, then commit and push (Guided Project page).
+- Draft: tasks 0-5 with your WRITE answers. Final: revise with Module 14's
+  ideas and fill in the Revision log near the end.
+-->
+
+## My data
+
+The Fairness dataset contains hospital patient data.Each row is one patient and ther are r scales::comma(nrow(fairness))rows.
+
+ThThe Sports dataset contains sumo wrestler records from 1957–2023. Each row represents one appearance of a wrestler in the Makuuchi Banzuke division, and the dataset contains r scales::comma(nrow(sports)) rows. The data come from the SCORE Sports Data Repository. 【1-094996】
+
+
+##References 
+SCORE Network. (2023). Sumo wrestler characteristics. SCORE Sports Data Repository. https://data.scorenetwork.org/wrestling/sumo_wrestingling_since_1957.html
+
+Fairness dataset. (2026). Dataset provided for CIS-3901 Guided Project, Catawba College
+
+```{r}
+#| label: data
+#| echo: true
+```
+
+## Part A · Fairness
+
+### A0 · See it update
+
+```{r}
+#| label: fig-a0
+#| ref.label: a0
+#| echo: true
+#| fig-cap: "Healthcare Groups Overview: count of records by category."
+#| fig-alt: "Bar chart showing the number of records in each category of a Fairness dataset variable."
+```
+
+```{r}
+#| label: a0-check
+#| include: false
+```
+
+WRITE (1 sentence): Did your title change show up here and in your slides?
+Yes, the title change appeared in both the report and the slides after rendering.
+### A1 · Label it
+
+```{r}
+#| label: fig-a1
+#| ref.label: a1
+#| echo: true
+#| fig-cap: "Share of each group with the outcome, labeled for a reader."
+#| fig-alt: "Bar chart showing the percentage of male and female patients who were readmitted within 30 days."
+```
+
+```{r}
+#| label: a1-check
+#| include: false
+```
+
+WRITE (2 sentences): Which label did you change most, and why? Could a reader
+understand this plot without you there?
+
+I changed the title the most because I wanted it to clearly explain what the chart shows. Yes, the labels make the plot easy to understand without me there.
+
+### A2 · Choose a scale
+
+```{r}
+#| label: fig-a2
+#| ref.label: a2
+#| echo: true
+#| fig-cap: "My scale choice."
+#| fig-alt: "Histogram showing the distribution of the number of lab procedures performed on patients using a log-scaled x-axis."
+```
+
+```{r}
+#| label: a2-check
+#| include: false
+```
+
+WRITE (2–3 sentences): Which scale, and why? What does a reader see with it
+that they wouldn't see without it? If values were removed (0 or below on a
+log scale), say how many.
+
+I used a log scale because the data are spread out. It makes the pattern easier to see, and values of 0 were removed because a log scale cannot show zero.
+
+### A3 · Facet it: fixed or free
+
+```{r}
+#| label: fig-a3
+#| ref.label: a3
+#| echo: true
+#| fig-cap: "The same rates in panels: fixed and free y-axes."
+#| fig-subcap: ["Fixed", "Free"]
+#| fig-alt: "Two faceted bar charts showing readmission rates by gender across racial groups, with one using fixed y-axes and the other using free y-axes."
+#| layout: [[1, 1]]
+```
+
+```{r}
+#| label: a3-chosen
+#| include: false
+```
+
+```{r}
+#| label: tbl-a3
+#| tbl-cap: "Each group's n and rate, by panel."
+#| echo: false
+knitr::kable(a3_rates, digits = 3)
+```
+
+```{r}
+#| label: a3-check
+#| include: false
+```
+
+WRITE (3–4 sentences): Fixed or free? What does the reader gain, and what do
+they lose? Which panels or groups are small, and what is their n? Describe
+differences, not causes.
+
+I chose the fixed version because it makes the panels easier to compare. The reader can quickly see differences between groups because all panels use the same scale. Smaller groups have lower n values, which are shown in the panel labels. The plot shows differences in readmission rates across groups, but it does not explain why those differences exist.
+
+### A4 · Compared to what?
+
+```{r}
+#| label: fig-a4
+#| ref.label: a4
+#| echo: true
+#| fig-cap: "Two groups: individual values and resampled means, same axes."
+#| fig-alt: "Two panels showing the number of medications for male and female patients, including individual values and resampled means."
+```
+
+```{r}
+#| label: a4-check
+#| include: false
+```
+
+WRITE (2–3 sentences): Do the clouds overlap? What does that say about
+individuals versus the group means?
+
+The clouds overlap quite a bit between the two groups. This suggests that many individual patients have similar values, even though the group averages may be slightly different.
+
+### A5 · Color for every reader
+
+```{r}
+#| label: fig-a5
+#| ref.label: [a5, a5-simulated]
+#| echo: true
+#| fig-cap: "My colors, with a second cue, and how a reader with red-green color blindness might see them."
+#| fig-subcap: ["My plot", "Red-green (deuteranopia), simulated"]
+#| fig-alt:
+#|   - "Bar chart showing the number of patients in each gender group using color to distinguish categories."
+#|   - "The same plot in the colors a reader with red-green color blindness (deuteranopia) might see."
+#| layout-ncol: 2
+```
+
+```{r}
+#| label: a5-colors
+#| echo: true
+```
+
+```{r}
+#| label: fig-a5-views
+#| ref.label: a5-other-views
+#| echo: true
+#| fig-cap: "The other two simulated views."
+#| fig-subcap: ["Red-green (protanopia), simulated", "Blue-yellow (approximate), simulated"]
+#| fig-alt:
+#|   - "The same plot in the colors a reader with red-green color blindness (protanopia) might see."
+#|   - "The same plot in the colors a reader with blue-yellow color blindness might see (an approximation)."
+#| layout-ncol: 2
+```
+
+```{r}
+#| label: a5-check
+#| include: false
+```
+
+WRITE (2–4 sentences): Explain your colors. Say which column you colored by
+and why. If your first choice failed the color check, say what you changed:
+fewer categories, grouping rare ones, or panels. Then look at your simulated
+plot: can you still tell the categories apart?
+
+I colored the plot by gender to compare the two groups. I used a color-blind-friendly palette so the colors are easy to distinguish. The gender labels also help identify the groups without relying only on color. Yes, I can still tell the categories apart in the simulated plot.
+
+## Part B · Sports
+
+### B1 · Label it
+
+```{r}
+#| label: fig-b1
+#| ref.label: b1
+#| echo: true
+#| fig-cap: "My Sports plot, labeled for a reader."
+#| fig-alt: "Scatterplot showing the relationship between wrestler weight and number of wins."
+```
+
+```{r}
+#| label: b1-check
+#| include: false
+```
+
+WRITE (2 sentences): What does the plot show? Which label helps a reader most?
+
+The plot shows the relationship between wrestler weight and the number of wins. The axis labels help a reader the most because they clearly show what is being compared.
+
+### B2 · Choose a scale
+
+```{r}
+#| label: fig-b2
+#| ref.label: b2
+#| echo: true
+#| fig-cap: "My scale choice."
+#| fig-alt: "Scatterplot showing the relationship between wrestler weight and wins using a log-scaled weight axis."
+```
+
+```{r}
+#| label: b2-check
+#| include: false
+```
+
+WRITE (2–3 sentences): Which scale, and why? If values were removed, say how
+many.
+
+I used a log scale for wrestler weight because it makes the data easier to read. The log scale helps show the overall pattern in the data more clearly. No values were removed.
+
+### B3 · Facet it: fixed or free
+
+```{r}
+#| label: fig-b3
+#| ref.label: b3
+#| echo: true
+#| fig-cap: "The same plot in panels: fixed and free y-axes."
+#| fig-subcap: ["Fixed", "Free"]
+#| fig-alt: "Two faceted scatterplots showing the relationship between wrestler weight and wins for different heya groups, using fixed and free y-axis scales."
+#| layout: [[1, 1]]
+```
+
+```{r}
+#| label: b3-check
+#| include: false
+```
+
+WRITE (3–4 sentences): Fixed or free? What does the reader gain, and what do
+they lose? Which panels are small, and what is their n? Differences, not
+causes.
+
+I chose the fixed version because it makes the heya groups easier to compare. The reader gains a consistent scale across all panels, but loses some detail that may be easier to see with free scales. The smaller panels have lower n values, which are shown in the panel labels. The plot shows differences between heya groups, but it does not explain the causes of those differences.
+
+### B4 · Compared to what?
+
+```{r}
+#| label: fig-b4
+#| ref.label: b4
+#| echo: true
+#| fig-cap: "Two groups: individual values and resampled means, same axes."
+#| fig-alt: "Two panels showing wrestler weights for wrestlers with winning and losing records, including individual values and resampled means."
+```
+
+```{r}
+#| label: b4-check
+#| include: false
+```
+
+WRITE (2–3 sentences): Do the clouds overlap? What does that say about
+individuals versus the group means?
+
+The clouds overlap quite a bit between the two groups. This suggests that many individual wrestlers have similar weights. The group means are more stable and show less variation than the individual values.
+
+### B5 · Color for every reader
+
+```{r}
+#| label: fig-b5
+#| ref.label: [b5, b5-simulated]
+#| echo: true
+#| fig-cap: "My colors, with a second cue, and how a reader with red-green color blindness might see them."
+#| fig-subcap: ["My plot", "Red-green (deuteranopia), simulated"]
+#| fig-alt:
+#|   - "Bar chart showing the number of wrestlers with winning and non-winning records using different colors."
+#|   - "The same plot in the colors a reader with red-green color blindness (deuteranopia) might see."
+#| layout-ncol: 2
+```
+
+```{r}
+#| label: b5-colors
+#| echo: true
+```
+
+```{r}
+#| label: fig-b5-views
+#| ref.label: b5-other-views
+#| echo: true
+#| fig-cap: "The other two simulated views."
+#| fig-subcap: ["Red-green (protanopia), simulated", "Blue-yellow (approximate), simulated"]
+#| fig-alt:
+#|   - "The same plot in the colors a reader with red-green color blindness (protanopia) might see."
+#|   - "The same plot in the colors a reader with blue-yellow color blindness might see (an approximation)."
+#| layout-ncol: 2
+```
+
+```{r}
+#| label: b5-check
+#| include: false
+```
+
+WRITE (2–4 sentences): Explain your colors. Say which column you colored by
+and why. If your first choice failed the color check, say what you changed:
+fewer categories, grouping rare ones, or panels. Then look at your simulated
+plot: can you still tell the categories apart?
+
+I colored the plot by record type to compare wrestlers with winning and non-winning records. I used a color-blind-friendly palette so the categories are easy to distinguish. The y-axis labels provide a second cue besides color. Yes, I can still tell the categories apart in the simulated plot.
+
+## One thing I tried in my slides, and why
+
+WRITE (2–3 sentences): One idea of your own in your slides (an angle, a
+comparison, an order, an annotation), and how it helps a reader see the
+finding.
+
+One thing I tried in my slides was presenting the faceted readmission rate chart before discussing its limitations. This helped readers see the differences between groups first and then think about the sample sizes and limitations. The order made the main finding easier to understand.
+## Revision log
+
+<!-- Leave this empty for the draft; the page renders with it empty. -->
+
+Fill this in for the final: three to five changes to your report or slides.
+For each: what changed, why, and which idea from Module 14 it uses.
+
+| Change | Why | Module 14 idea |
+|Improved chart titles and axis labels|Made the graphs easier for readers to understand without extra explanation|Clear labeling|
+
+|Added descriptive figure captions and alt text |Improved accessibility and explained what each figure shows | Accessibility|
+
+|Chose fixed scales for the faceted plots | Made comparisons between groups easier and more accurate|Fair comparison |
+
+| | | |
+
+## Checks
+
+```{r}
+#| label: checks-table
+#| include: false
+```
+
+```{r}
+#| label: tbl-checks
+#| tbl-cap: "Every task's check, at the time this page was rendered."
+#| echo: false
+knitr::kable(checks_table)
+```
+
+## AI use
+
+WRITE: one public line only: "AI use: I used [tool] to [what for]." or
+"AI use: none." (Your AI log and conversations go in Blackboard, never here:
+Guided Project page.)
+
+I used Microsoft Copilot to help interpret assignment requirements, troubleshoot R code, and create and refine charts and visualizations for this project
+
+## References
+
+WRITE: APA references for your Fairness dataset (Fairlearn and the original
+source) and your Sports dataset (its SCORE page).
+
+Fairlearn contributors. (2024). Diabetes 130-Hospitals dataset. Fairlearn Documentation. https://fairlearn.org/v0.15/user_guide/datasets/diabetes_hospital_data.html 【1-c73caf】
+
+Strack, B., DeShazo, J. P., Gennings, C., Olmo, J. L., Ventura, S., Cios, K. J., & Clore, J. N. (2014). Impact of HbA1c measurement on hospital readmission rates: Analysis of 70,000 clinical database patient records. BioMed Research International, 2014, 781670. (Original source of the Fairness dataset referenced by Fairlearn.) 【1-c73caf】【2-77ab6b】
+
+Fay, J., Dykstra, A. J., & Ramler, I. (2023). Sumo wrestler characteristics. SCORE Sports Data Repository. https://data.scorenetwork.org/wrestling/sumo_wrestingling_since_1957.html 【3-2f65b5】

@@ -1,13 +1,13 @@
 ---
-title: "Sports Data: your title here"
-author: "Your Name"
+title: "Exploring Wrestler Performance Through Data Visualization"
+author: "Eric Torralba"
 format: revealjs
 # The oral presentation (Fri, Dec 4) is about 7 minutes: plan about 1 minute per slide.
 ---
 
 ## Question
 
-Your question about your sport, and the groups you compare.
+How does wrestler weight relate to performance, and how do wrestlers with winning and non-winning records compare?
 
 ## Main figure
 
@@ -22,8 +22,8 @@ my_data <- read_csv("../data/tidy/your_file.csv")
 
 ## What it shows
 
-The patterns and differences that the figure shows.
+The figures show the relationship between wrestler weight and wins, as well as differences between wrestlers with winning and non-winning records. Faceting and scale choices help reveal patterns that might be harder to see in a single chart.
 
 ## Limitations
 
-Provenance, small groups, and what the data cannot tell us.
+The data come from the course sports dataset, where each row represents one wrestler. Some groups contain fewer wrestlers than others, which can make comparisons less reliable. The data show associations between variables but cannot determine what causes a wrestler to win more matches.

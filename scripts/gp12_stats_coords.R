@@ -411,3 +411,11 @@ checks_table <- tibble(
   status = unlist(checks)
 )
 checks_table
+
+a_data <- fairness %>%
+  mutate(
+    group = "replace me",
+    has_outcome = FALSE
+  )
+
+

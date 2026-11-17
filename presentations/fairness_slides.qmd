@@ -1,13 +1,13 @@
 ---
-title: "Fairness Data: your title here"
-author: "Your Name"
+title: "Fairness in Healthcare: Readmission Rates by Gender and Race"
+author: "Eric Torralba"
 format: revealjs
 # The oral presentation (Fri, Dec 4) is about 7 minutes: plan about 1 minute per slide.
 ---
 
 ## Question
 
-Your question, and the groups you compare.
+How do 30-day hospital readmission rates compare between male and female patients across different racial groups?
 
 ## Main figure
 
@@ -22,8 +22,8 @@ my_data <- read_csv("../data/tidy/your_file.csv")
 
 ## What it shows
 
-The differences between groups that the figure shows (differences, not causes).
+The figure shows that readmission rates are generally similar between male and female patients, although some racial groups show slightly higher or lower rates than others.
 
 ## Limitations
 
-Provenance, small groups, and what the data cannot tell us.
+The data come from the Fairness dataset, where each row represents one patient record. Some racial groups have smaller sample sizes than others, which can make comparisons less reliable. The data can show differences between groups but cannot determine the causes of those differences or whether race or gender directly affected readmission outcomes.
